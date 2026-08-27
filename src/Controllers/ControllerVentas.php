@@ -12,6 +12,7 @@ require_once '../src/Helpers/Flash.php';
 // 3. Sanitizar y capturar los datos básicos del formulario
 $metodo_pago = filter_input(INPUT_POST, 'metodo_pago', FILTER_DEFAULT);
 $total_venta = filter_input(INPUT_POST, 'total_venta', FILTER_VALIDATE_FLOAT);
+$cliente = filter_input(INPUT_POST, 'cliente', FILTER_DEFAULT);
 $items_json = filter_input(INPUT_POST, 'items_json', FILTER_DEFAULT);
 
 $metodos_permitidos = ['Efectivo', 'Transferencia', 'Tarjeta'];
@@ -30,7 +31,7 @@ if (json_last_error() !== JSON_ERROR_NONE || empty($carrito)) {
     exit;
 }
 
-$exito = Ventas::registrar($pdo, $total_venta, $metodo_pago, 'completada', $carrito);
+$exito = Ventas::registrar($pdo, $total_venta, $metodo_pago, 'completada', $carrito, $cliente);
 
 
 if ($exito) {

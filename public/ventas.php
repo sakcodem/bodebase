@@ -121,7 +121,7 @@ $categorias = Categorias::getActivos($pdo);
                         </div>
                     </div>
 
-                    <form action="Routes.php" method="POST" class="mt-6 pt-4 border-t border-slate-200"
+                    <form action="Routes.php" method="POST" class="mt-6 pt-4 border-t border-slate-200 tracking-wider"
                         @submit="prepareSubmit($event)">
                         <input type="hidden" name="ctrl" value="venta">
                         <input type="hidden" name="items_json" :value="JSON.stringify(cart)">
@@ -154,6 +154,12 @@ $categorias = Categorias::getActivos($pdo);
                             </div>
                         </div>
 
+                        <div>
+                            <label for="cliente" class="block text-sm font-medium text-slate-500 mb-1">Cliente (opcional)</label>
+                            <input type="text" id="cliente" name="cliente" x-model="cliente"
+                                class="border border-slate-300 focus:ring-2 hover:border-amber-500 focus:ring-amber-500 focus:outline-hidden py-1 px-2 rounded-lg">
+                        </div>
+
                         <div class="space-y-3">
                             <div class="flex justify-between items-center">
                                 <span class="text-slate-600 font-medium">Total a Cobrar:</span>
@@ -179,6 +185,7 @@ $categorias = Categorias::getActivos($pdo);
                 cart: [],
                 metodo_pago: 'Efectivo',
                 total: 0,
+                cliente: '',
 
                 addItem(id, nombre, precio) {
                     let existing = this.cart.find(item => item.id === id);

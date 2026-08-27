@@ -1,0 +1,2 @@
+ALTER TABLE ventas 
+ADD COLUMN cliente VARCHAR(150) NULL AFTER status;

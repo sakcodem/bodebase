@@ -12,18 +12,19 @@ class Ventas
      * @param array $carrito Arreglo con los productos vendidos y sus cantidades.
      * @return bool Retorna true si la venta se registró correctamente, false en caso contrario.
      */
-    public static function registrar(PDO $pdo, float $total_venta, string $metodo_pago, string $status, array $carrito): bool
+    public static function registrar(PDO $pdo, float $total_venta, string $metodo_pago, string $status, array $carrito, ?string $cliente): bool
     {
         try {
             $pdo->beginTransaction();
 
             //  Insertar en la tabla maestra 'ventas'
-            $sqlVenta = "INSERT INTO ventas (total, metodo_pago, status) VALUES (:total, :metodo_pago, :status)";
+            $sqlVenta = "INSERT INTO ventas (total, metodo_pago, status, cliente) VALUES (:total, :metodo_pago, :status, :cliente)";
             $stmtVenta = $pdo->prepare($sqlVenta);
             $stmtVenta->execute([
                 ':total' => $total_venta,
                 ':metodo_pago' => $metodo_pago,
-                ':status' => $status
+                ':status' => $status,
+                ':cliente' => $cliente
             ]);
 
             $ventaId = $pdo->lastInsertId();

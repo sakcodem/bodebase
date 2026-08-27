@@ -6,7 +6,7 @@ class HistorialVentas {
      */
     public static function getVentas(PDO $pdo): array {
         try {
-            $sql = "SELECT id, fecha, total, metodo_pago, status 
+            $sql = "SELECT id, fecha, total, metodo_pago, cliente, status 
                     FROM ventas 
                     ORDER BY fecha DESC";
             return $pdo->query($sql)->fetchAll();

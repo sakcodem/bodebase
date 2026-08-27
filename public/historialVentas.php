@@ -23,7 +23,7 @@ $ventas = HistorialVentas::getVentas($pdo);
 </head>
 
 <body class="bg-slate-100 text-slate-800 antialiased min-h-screen"
-    x-data="{ isOpen: false, selectedVenta: null, items: [], loading: false, async verDetalle(id, total, fecha, pago) { this.selectedVenta = { id, total, fecha, pago }; this.isOpen = true; this.loading = true; this.items = []; try { let response = await fetch(`Apis/detalles_ventas.php?id=${id}`); this.items = await response.json(); } catch (e) { console.error('Error al cargar el detalle', e); } finally { this.loading = false; } } }">
+    x-data="{ isOpen: false, selectedVenta: null, items: [], loading: false, async verDetalle(id, total, fecha, pago, cliente) { this.selectedVenta = { id, total, fecha, pago, cliente }; this.isOpen = true; this.loading = true; this.items = []; try { let response = await fetch(`Apis/detalles_ventas.php?id=${id}`); this.items = await response.json(); } catch (e) { console.error('Error al cargar el detalle', e); } finally { this.loading = false; } } }">
     <div class="flex flex-col md:flex-row min-h-screen">
         <?php include '../includes/sidebar.php'; ?>
         <main class="flex-1 p-4 md:p-6 max-w-7xl mx-auto w-full space-y-6">
@@ -61,7 +61,7 @@ $ventas = HistorialVentas::getVentas($pdo);
                                         <td class="py-4 px-2 font-bold text-slate-950">#<?= $v['id'] ?></td>
                                         <td class="py-4 px-2 text-slate-500">
                                             <?= $fechaFormateada ?>
-                                        </td> 
+                                        </td>
                                         <td class="py-4 px-2">
                                             <span
                                                 class="px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600">
@@ -73,7 +73,7 @@ $ventas = HistorialVentas::getVentas($pdo);
                                         </td>
                                         <td class="py-4 px-2 text-center">
                                             <button
-                                                @click="verDetalle(<?= $v['id'] ?>, '<?= number_format($v['total'], 2) ?>', '<?= $fechaFormateada ?>', '<?= htmlspecialchars($v['metodo_pago'], ENT_QUOTES) ?>')"
+                                                @click="verDetalle(<?= $v['id'] ?>, '<?= number_format($v['total'], 2) ?>', '<?= $fechaFormateada ?>', '<?= htmlspecialchars($v['metodo_pago'], ENT_QUOTES) ?>', '<?= htmlspecialchars($v['cliente'], ENT_QUOTES)?>')"
                                                 class="p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 transition cursor-pointer inline-flex items-center justify-center gap-1.5 text-xs font-bold">
                                                 <i data-lucide="eye" class="w-4 h-4 text-amber-500"></i>
                                             </button>
@@ -122,6 +122,10 @@ $ventas = HistorialVentas::getVentas($pdo);
                 </div>
             </div>
             <div class="pt-4 border-t border-dashed border-slate-200 space-y-2 text-sm">
+                <div class="flex justify-between text-slate-500">
+                    <span>Cliente:</span>
+                    <span class="font-bold text-slate-700" x-text="selectedVenta?.cliente"></span>
+                </div>
                 <div class="flex justify-between text-slate-500">
                     <span>Método de Pago:</span>
                     <span class="font-bold text-slate-700" x-text="selectedVenta?.pago"></span>
