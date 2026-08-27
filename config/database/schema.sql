@@ -1,8 +1,7 @@
 -- =========================================================================
 -- SCRIPT DE CREACIÓN DE BASE DE DATOS - BODEBASE
--- SYSTEM: PHP Nativo + MySQL (InnoDB)
 -- =========================================================================
-
+-- YYYY_MM_DD
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `detalle_ventas`;
 DROP TABLE IF EXISTS `ventas`;
@@ -81,16 +80,3 @@ CREATE TABLE `gastos` (
     `notas` TEXT DEFAULT NULL,
     `deleted_at` DATETIME DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
--- =========================================================================
--- INSERCIÓN DE DATOS DE PRUEBA (OPCIONAL / SEMILLERO)
--- Puedes borrar estas líneas si prefieres la base de datos completamente limpia.
--- =========================================================================
-
--- Productos iniciales de ejemplo
-INSERT INTO `productos` (`nombre`, `descripcion`, `precio_venta`, `status`) VALUES
-('Crepa Nutella Clásica', 'Crepa con Nutella, plátano y fresas', 65.00, 'activo'),
-('Crepa Cajeta y Nuez', 'Crepa con cajeta tradicional y trozos de nuez', 60.00, 'activo'),
-('Crepa Triple Queso (Salada)', 'Queso crema, mozzarella y queso amarillo', 75.00, 'activo'),
-('Extra de Helado', 'Bola de helado de vainilla como topping', 15.00, 'activo');

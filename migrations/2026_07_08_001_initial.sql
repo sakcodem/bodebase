@@ -1,20 +1,8 @@
--- =========================================================================
--- SCRIPT DE CREACIÓN DE BASE DE DATOS - BODEBASE
--- =========================================================================
 
 SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE IF EXISTS `detalle_ventas`;
-DROP TABLE IF EXISTS `ventas`;
-DROP TABLE IF EXISTS `gastos`;
-DROP TABLE IF EXISTS `productos`;
-DROP TABLE IF EXISTS `usuarios`;
-SET FOREIGN_KEY_CHECKS = 1;
 
--- -------------------------------------------------------------------------
 -- 1. TABLA: USUARIOS
--- Control de acceso al panel administrativo de la app.
--- -------------------------------------------------------------------------
-CREATE TABLE `usuarios` (
+CREATE TABLE IF NOT EXISTS `usuarios` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `nombre` VARCHAR(100) NOT NULL,
     `email` VARCHAR(100) NOT NULL UNIQUE,
@@ -22,11 +10,8 @@ CREATE TABLE `usuarios` (
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- -------------------------------------------------------------------------
 -- 2. TABLA: PRODUCTOS
--- Catálogo de crepas y extras. Incluye Soft Delete y control de Status.
--- -------------------------------------------------------------------------
-CREATE TABLE `productos` (
+CREATE TABLE IF NOT EXISTS `productos` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `nombre` VARCHAR(100) NOT NULL,
     `descripcion` TEXT DEFAULT NULL,
@@ -37,11 +22,8 @@ CREATE TABLE `productos` (
     `deleted_at` DATETIME DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- -------------------------------------------------------------------------
 -- 3. TABLA: VENTAS
--- Registro maestro de las entradas de dinero.
--- -------------------------------------------------------------------------
-CREATE TABLE `ventas` (
+CREATE TABLE IF NOT EXISTS `ventas` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `total` DECIMAL(10,2) NOT NULL,
@@ -50,11 +32,8 @@ CREATE TABLE `ventas` (
     `notas` TEXT DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- -------------------------------------------------------------------------
 -- 4. TABLA: DETALLE_VENTAS
--- Relación Muchos a Muchos. Almacena el precio histórico de la venta.
--- -------------------------------------------------------------------------
-CREATE TABLE `detalle_ventas` (
+CREATE TABLE IF NOT EXISTS `detalle_ventas` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `venta_id` INT NOT NULL,
     `producto_id` INT NOT NULL,
@@ -67,11 +46,8 @@ CREATE TABLE `detalle_ventas` (
         FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- -------------------------------------------------------------------------
 -- 5. TABLA: GASTOS
--- Registro de salidas de dinero (materia prima, servicios, etc.).
--- -------------------------------------------------------------------------
-CREATE TABLE `gastos` (
+CREATE TABLE IF NOT EXISTS `gastos` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `concepto` VARCHAR(255) NOT NULL,
@@ -80,3 +56,5 @@ CREATE TABLE `gastos` (
     `notas` TEXT DEFAULT NULL,
     `deleted_at` DATETIME DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+SET FOREIGN_KEY_CHECKS = 1;

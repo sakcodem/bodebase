@@ -101,7 +101,6 @@ $metricasFiltro = Dashboard::getMetricasPorFecha($pdo, $fechaInicio, $fechaFin);
                 </a>
             </div>
 
-            <!-- 2. Nueva Sección: Consulta de Movimientos por Período de Fecha -->
             <section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">
                 <div
                     class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
@@ -112,21 +111,25 @@ $metricasFiltro = Dashboard::getMetricasPorFecha($pdo, $fechaInicio, $fechaFin);
                     </div>
 
                     <!-- Formulario de Rango de Fechas -->
-                    <form method="GET" class="flex flex-wrap items-center gap-2">
-                        <div
-                            class="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 rounded-xl border border-slate-200 text-xs font-medium text-slate-600">
-                            <span>Desde:</span>
-                            <input type="date" name="fecha_inicio"
-                                value="<?= htmlspecialchars($metricasFiltro['fecha_inicio']) ?>"
-                                class="bg-transparent border-0 font-bold text-slate-800 focus:outline-none cursor-pointer">
+                    <form method="GET" class="flex flex-wrap items-end gap-2.5">
+                        <div class="flex flex-col text-xs gap-1.5">
+                            <span class="text-slate-600">Desde:</span>
+                            <div
+                                class="flex items-center px-3 py-1.5 bg-slate-50 rounded-xl border border-slate-200 font-medium">
+                                <input type="date" name="fecha_inicio"
+                                    value="<?= htmlspecialchars($metricasFiltro['fecha_inicio']) ?>"
+                                    class="bg-transparent border-0 font-bold text-slate-800 focus:outline-none cursor-pointer">
+                            </div>
                         </div>
 
-                        <div
-                            class="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 rounded-xl border border-slate-200 text-xs font-medium text-slate-600">
-                            <span>Hasta:</span>
-                            <input type="date" name="fecha_fin"
-                                value="<?= htmlspecialchars($metricasFiltro['fecha_fin']) ?>"
-                                class="bg-transparent border-0 font-bold text-slate-800 focus:outline-none cursor-pointer">
+                        <div class="flex flex-col text-xs gap-1.5">
+                            <span class="text-slate-600">Hasta:</span>
+                            <div
+                                class="flex items-center px-3 py-1.5 bg-slate-50 rounded-xl border border-slate-200 text-xs font-medium">
+                                <input type="date" name="fecha_fin"
+                                    value="<?= htmlspecialchars($metricasFiltro['fecha_fin']) ?>"
+                                    class="bg-transparent border-0 font-bold text-slate-800 focus:outline-none cursor-pointer">
+                            </div>
                         </div>
 
                         <button type="submit"
